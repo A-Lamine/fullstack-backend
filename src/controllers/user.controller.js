@@ -4,7 +4,15 @@ const jwt = require("jsonwebtoken");
 const configs = require("../configs");
 
 exports.register = (req, res) => {
+
   let hashedPassword = bcrypt.hashSync(req.body.password, 10);
+  User.findOne({ email: req.body.email })
+  .then((user) => {
+      res.status(403).send({
+        message : "Adresse-mail existe deja"
+      });
+      return false;
+    })
 
   const user = new User({
     firstName: req.body.firstName,

@@ -1,7 +1,7 @@
-const stripe = require('stripe')("sk_test_51KHW6rHDhohYn0outq44WpsLCj0kjwGsgF5Dwl8jJsiVrBg4yQwdHajFLrmSXk7iLH15kYiKb9VQkbyGULG9hZb10083T26Y2W");
+const stripe = require('stripe')(process.env.PRIVATE_KEY);
 
 const initiateStripeSession = async (req,res) => {
-    const { lamine, totalPrice } = req.body
+    const { marque, totalPrice } = req.body
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -9,7 +9,7 @@ const initiateStripeSession = async (req,res) => {
             price_data: {
               currency: "eur",
               product_data: {
-                name: lamine
+                name: marque
               },
               unit_amount: totalPrice * 100,
             },
