@@ -8,6 +8,7 @@ module.exports = {
         getProduct(parent, args, context) {
             return Product.findById(args.id);
         }
+
     },
     Mutation: {
         createProduct(parent, args) {
@@ -15,7 +16,9 @@ module.exports = {
                 {
                     title: args.title,
                     description: args.description,
-                    price: args.price
+                    type: args.type,
+                    price: args.price,
+                    img: args.img
                 }
             )
             return newProduct.save();
